@@ -20,14 +20,15 @@
             <!-- {{$route.path}} -->
           </p>
           <!-- 左侧导航 -->
+          <!-- :default-active="$route.path -->
           <el-menu
-            default-active="$route.path"
+            :default-active="$route.path"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#f00"
-            router
             :collapse="isCollapse"
+            router
           >
             <el-submenu :index="item.path" v-for="item in menus" :key="item.id">
               <template slot="title">
@@ -108,7 +109,6 @@ export default {
 .el-main {
   background-color: #e9eef3;
   color: #333;
-  text-align: center;
 }
 .el-menu {
   border-right: none;

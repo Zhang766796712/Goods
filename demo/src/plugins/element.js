@@ -22,12 +22,15 @@ import {
   Pagination,
   MenuItemGroup,
   Dialog,
-  // MessageBox,
-  // Message
+  MessageBox,
+  Message,
+  Select,
+  Option
 
 } from 'element-ui'
-// Vue.use(MessageBox)
-// Vue.use(Message)
+
+Vue.use(Option)
+Vue.use(Select)
 Vue.use(Dialog)
 Vue.use(Pagination)
 Vue.use(MenuItemGroup)
@@ -50,3 +53,10 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Button)
 Vue.use(Input)
+
+
+Vue.prototype.$message = Message;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$msgbox = MessageBox;
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$prompt = MessageBox.prompt;

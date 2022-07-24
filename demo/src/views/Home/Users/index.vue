@@ -53,7 +53,10 @@
         <el-table-column prop="mg_state" label="状态" width="120">
           <template slot-scope="scope">
             <!-- switch 开关 -->
-            <el-switch v-model="scope.row.mg_state"></el-switch>
+            <el-switch
+              v-model="scope.row.mg_state"
+              @change="changeState(scope.row)"
+            ></el-switch>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
@@ -62,24 +65,23 @@
               type="primary"
               size="mini"
               icon="el-icon-edit"
-              @click="edit(item)"
+              @click="edit(scope.row)"
             ></el-button>
             <el-button
               type="danger"
               size="mini"
               icon="el-icon-delete"
-              @click="del"
+              @click="del(scope.row)"
             ></el-button>
             <el-button
               type="warning"
               size="mini"
               icon="el-icon-setting"
-              @click="AssignRoles"
+              @click="AssignRoles(scope.row)"
             ></el-button>
           </template>
         </el-table-column>
       </el-table>
-      <!--  -->
       <!-- 对话框 -->
       <el-dialog :title="title" :visible.sync="dialogVisible" width="50%">
         <!-- 带验证的表单 -->
@@ -124,6 +126,30 @@
           </el-form-item>
         </el-form>
       </el-dialog>
+      <!-- 分配角色 -->
+      <el-dialog title="分配角色" :visible.sync="OpenRights">
+        <div>
+          <p>当前用户：{{ roles.username }}</p>
+          <p>超级管理员：{{ roles.role_name }}</p>
+          <p>
+            分配新角色：
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in RoleList"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </p>
+        </div>
+        <div slot="footer" class="dialog-footer">
+          <!-- this.OpenRights = false;@click="dialogVisible = false" -->
+          <el-button @click="OpenRights = false">取 消</el-button>
+          <el-button type="primary" @click="changeRole">确 定</el-button>
+        </div>
+      </el-dialog>
       <!-- Pagination 分页 完整功能 -->
       <el-pagination
         @size-change="handleSizeChange"
@@ -140,7 +166,15 @@
 </template>
 
 <script>
-import { Usersapi, AddUsersapi, UsersDeitapi, UsersDelapi } from '@/http/api'
+import {
+  Usersapi,
+  AddUsersapi,
+  UsersDeitapi,
+  UsersDelapi,
+  UsersState,
+  AssignRolesapi,
+  SetRolesapi
+} from '@/http/api'
 export default {
   name: 'users',
   data() {
@@ -182,13 +216,24 @@ export default {
         pagenum: 1, // 当前页码
         pagesize: 5 // 每页的条数
       },
-      dialogVisible: false, // 控制模态框显示和隐藏
+      dialogVisible: false, // 添加用户控制模态框显示和隐藏
       ruleForm: {
         username: '', // 用户名
         password: '', // 密码
         email: '', // 邮箱
         mobile: '' // 电话
       },
+      roles: {
+        //分配角色
+        role_name: '',
+        username: '',
+        id: '',
+        mobile: '',
+        email: ''
+      },
+      RoleList: [], // 角色列表
+      OpenRights: false, //分配角色模态框显示和隐藏
+      value: '', // 角色下拉框value值
       rules: {
         // 校验验证
         username: [
@@ -245,7 +290,13 @@ export default {
         if (!valid) return false
         //调添加新用户接口
         const res = await AddUsersapi(this.ruleForm)
-        // console.log('添加用户的结果：', res)
+
+        // 清空
+        this.ruleForm.username = '' // 用户名
+        this.ruleForm.password = '' // 密码
+        this.ruleForm.email = '' // 邮箱
+        this.ruleForm.mobile = '' // 电话
+
         this.dialogVisible = false // 关闭模态框
         this.getUsers() // 获取用户列表
       })
@@ -255,21 +306,45 @@ export default {
       this.$refs[formName].resetFields()
     },
     // 编辑按钮
-    edit(item) {
+    edit(row) {
       this.dialogVisible = true // 显示弹出框
       this.title = '编辑用户'
       // 数据回填
+      // UsersDeitapi 编辑接口
+      this.ruleForm = row
+      // this.cid = row.id;
     },
     // 编辑保存修改
-    save() {
+    async save() {
+      await UsersDeitapi(this.ruleForm)
       this.dialogVisible = false // 关闭弹出框
       this.getUsers() //调用获取用户列表函数
     },
-    // 删除单个用户
-    del() {},
+    // 修改用户状态
+    async changeState(row) {
+      await UsersState(row)
+      this.getUsers()
+    },
+    //  删除单个用户
+    async del(row) {
+      const res = await UsersDelapi(row.id)
+      this.getUsers()
+    },
     // 分配角色
-    AssignRoles(){
-
+    async AssignRoles(row) {
+      console.log(row)
+      const res = await AssignRolesapi()
+      this.RoleList = res
+      this.roles = row
+      this.OpenRights = true
+    },
+    // 分配角色 确定按钮
+    async changeRole() {
+      this.OpenRights = false
+      // this.roles.role_name=this.value
+      // console.log(this.value);
+      await SetRolesapi(this.roles.id, this.value)
+      this.getUsers()
     }
   },
   created() {
@@ -286,5 +361,8 @@ export default {
 <style lang="scss" scoped>
 .el-row {
   margin: 10px 0;
+}
+.el-breadcrumb {
+  margin-bottom: 10px;
 }
 </style>

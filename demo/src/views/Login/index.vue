@@ -18,6 +18,7 @@
 
         <el-form-item label="密码" prop="password">
           <el-input
+            show-password
             v-model="LoginForm.password"
             type="password"
              prefix-icon="el-icon-lock"
