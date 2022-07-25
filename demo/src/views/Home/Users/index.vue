@@ -117,11 +117,16 @@
               type="primary"
               v-show="title == '添加用户'"
               @click="submitForm()"
-              >添加</el-button
             >
-            <el-button type="primary" v-show="title == '编辑用户'" @click="save"
-              >保存修改</el-button
+              添加
+            </el-button>
+            <el-button
+              type="primary"
+              v-show="title == '编辑用户'"
+              @click="save"
             >
+              保存修改
+            </el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -139,13 +144,11 @@
                 :key="item.id"
                 :label="item.roleName"
                 :value="item.id"
-              >
-              </el-option>
+              ></el-option>
             </el-select>
           </p>
         </div>
         <div slot="footer" class="dialog-footer">
-          <!-- this.OpenRights = false;@click="dialogVisible = false" -->
           <el-button @click="OpenRights = false">取 消</el-button>
           <el-button type="primary" @click="changeRole">确 定</el-button>
         </div>
@@ -159,8 +162,7 @@
         :page-size="page.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
-      >
-      </el-pagination>
+      ></el-pagination>
     </el-card>
   </div>
 </template>
@@ -231,7 +233,7 @@ export default {
         mobile: '',
         email: ''
       },
-      RoleList: [], // 角色列表
+      RoleList: [], // 角色列表数据
       OpenRights: false, //分配角色模态框显示和隐藏
       value: '', // 角色下拉框value值
       rules: {
@@ -310,9 +312,7 @@ export default {
       this.dialogVisible = true // 显示弹出框
       this.title = '编辑用户'
       // 数据回填
-      // UsersDeitapi 编辑接口
       this.ruleForm = row
-      // this.cid = row.id;
     },
     // 编辑保存修改
     async save() {
@@ -332,7 +332,7 @@ export default {
     },
     // 分配角色
     async AssignRoles(row) {
-      console.log(row)
+      // console.log(row)
       const res = await AssignRolesapi()
       this.RoleList = res
       this.roles = row

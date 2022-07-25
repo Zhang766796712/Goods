@@ -17,10 +17,8 @@
         <el-aside :width="isCollapse ? '65px' : '200px'">
           <p @click="isCollapse = !isCollapse" style="color: #fff">
             <i :class="{ active: isCollapse }" class="el-icon-s-operation"></i>
-            <!-- {{$route.path}} -->
           </p>
           <!-- 左侧导航 -->
-          <!-- :default-active="$route.path -->
           <el-menu
             :default-active="$route.path"
             class="el-menu-vertical-demo"

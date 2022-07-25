@@ -25,10 +25,14 @@ import {
   MessageBox,
   Message,
   Select,
-  Option
+  Option,
+  Tag,
+  Tree
 
 } from 'element-ui'
 
+Vue.use(Tree)
+Vue.use(Tag)
 Vue.use(Option)
 Vue.use(Select)
 Vue.use(Dialog)
@@ -53,7 +57,6 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Button)
 Vue.use(Input)
-
 
 Vue.prototype.$message = Message;
 Vue.prototype.$alert = MessageBox.alert;

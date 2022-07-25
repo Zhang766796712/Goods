@@ -38,7 +38,7 @@ export function AddUsersapi(data) {
 // 封装编辑用户提交接口
 export function UsersDeitapi(data) {
   return request({
-    url:`/users/${data.id}`,
+    url: `/users/${data.id}`,
     method: 'PUT',
     data
   })
@@ -61,52 +61,74 @@ export function UsersState(data) {
   })
 }
 // 获取用户角色
-export function AssignRolesapi(params){
+export function AssignRolesapi(params) {
   return request({
-      url:'/roles',
-      method:'GET',
-      params
+    url: '/roles',
+    method: 'GET',
+    params
   })
 }
 //  分配用户角色
-export function SetRolesapi(id,rid){
+export function SetRolesapi(id, rid) {
   return request({
-      url:`/users/${id}/role`,
-      method:'PUT',
-      data:{rid}
+    url: `/users/${id}/role`,
+    method: 'PUT',
+    data: { rid }
   })
 }
 
 // =======角色列表=======
 
 // 获取角色列表
-export function GetRoles(params){
+export function GetRoles(params) {
   return request({
-      url:'/roles',
-      method:'GET',
-      params
+    url: '/roles',
+    method: 'GET',
+    params
   })
 }
 // 添加角色列表
-export function Addrole(data){
+export function Addrole(data) {
   return request({
-      url:'/roles',
-      method:'POST',
-      data
+    url: '/roles',
+    method: 'POST',
+    data
   })
 }
+
 //编辑角色
-export function Edirrole(data){
+export function Edirrole(data) {
   return request({
-      url:`/roles/${data.id}`,
-      method:'PUT',
-      data
+    url: `/roles/${data.id}`,
+    method: 'PUT',
+    data
   })
 }
 // 删除角色
-export function RemoveRole(id){
+export function RemoveRole(id) {
   return request({
-   url:`/roles/${id}`,
-   method:'DELETE'
+    url: `/roles/${id}`,
+    method: 'DELETE'
+  })
+}
+// 删除角色指定权限
+export function RemoveRights({ id, tid }) {
+  return request({
+    url: `/roles/${id}/rights/${tid}`,
+    method: "DELETE",
+  });
+}
+// 获取权限列表数据
+export function getRightsapi() {
+  return request({
+    url: 'rights/list',
+    method: 'GET'
+  })
+}
+// 根据id查询角色接口
+export function getRights() {
+  return request({
+    url: 'rights/tree',
+    method: 'get'
   })
 }
