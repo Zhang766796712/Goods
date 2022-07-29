@@ -95,7 +95,6 @@ export function Addrole(data) {
     data
   })
 }
-
 //编辑角色
 export function Edirrole(data) {
   return request({
@@ -104,7 +103,7 @@ export function Edirrole(data) {
     data
   })
 }
-// 删除角色
+// 删除角色id
 export function RemoveRole(id) {
   return request({
     url: `/roles/${id}`,
@@ -115,8 +114,8 @@ export function RemoveRole(id) {
 export function RemoveRights({ id, tid }) {
   return request({
     url: `/roles/${id}/rights/${tid}`,
-    method: "DELETE",
-  });
+    method: 'DELETE'
+  })
 }
 // 获取权限列表数据
 export function getRightsapi() {
@@ -129,6 +128,127 @@ export function getRightsapi() {
 export function getRights() {
   return request({
     url: 'rights/tree',
-    method: 'get'
+    method: 'GET'
+  })
+}
+// 角色更新授权接口  没有完成
+export function changeRoles(data,Id) {
+  return request({
+    url: `roles/${Id}/rights`,
+    method: 'POST',
+    data
+  })
+}
+
+// ==========商品列表==========
+
+// 商品列表数据
+export function getGoods(params) {
+  return request({
+    url: 'goods',
+    method: 'GET',
+    params
+  })
+}
+// 删除商品数据
+export function GoodsDelapi(id) {
+  return request({
+    url: `/goods/${id}`,
+    method: 'DELETE'
+  })
+}
+// 编辑商品数据 接口有问题 没有完成
+export function GoodsEditapi(data) {
+  return request({
+    url: `/goods/${data.goods_id}`,
+    method: 'PUT',
+    data
+  })
+}
+// 根据 ID 查询商品 
+export function getGoodsParamsListApi(params) {
+  return request({
+    url: `goods/${id}`,
+    method: 'GET',
+    params
+  })
+}
+// 图片上传
+export function addGoodsImg(data) {
+  return request({
+    url: 'upload',
+    method: 'POST',
+    data
+  })
+}
+// 封装商品分类接口
+export function getGoodsCateList(params) {
+  return request({
+    url: '/categories',
+    method: 'GET',
+    params
+  })
+}
+// 获取商品参数接口
+export function getGoodsParams(cateId, sel = 'many') {
+  return request({
+    url: `categories/${cateId}/attributes`,
+    method: 'GET',
+    params: { sel }
+  })
+}
+// 添加商品接口
+export function addGoods(data) {
+  return request({
+    url: '/goods',
+    method: 'POST',
+    data
+  })
+}
+// 删除分类数据
+export function CategoriesDelApi(id) {
+  return request({
+    url: `/categories/${id}`,
+    method: 'DELETE'
+  })
+}
+//编辑提交分类
+export function EditClassification(data,id) {
+  return request({
+    url: `/categories/${id}`,
+    method: 'PUT',
+    data
+  })
+}
+// 添加商品分类
+export function addGoodsApi(data) {
+  return request({
+    url: '/categories',
+    method: 'POST',
+    data
+  })
+}
+// 编辑提交参数
+export function editParams(catId,attrId,data) {
+  return request({
+    url: `/categories/${catId}/attributes/${attrId}`,
+    method: 'PUT',
+    data
+  })
+}
+// 订单数据列表
+export function OrdersListApi(params) {
+  return request({
+    url: '/orders',
+    method: 'GET',
+    params
+  })
+}
+
+// 数据统计接口
+export function getDataReportsApi() {
+  return request({
+    url: 'reports/type/1',
+    method: 'GET',
   })
 }

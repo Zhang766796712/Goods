@@ -2,27 +2,12 @@
   <div class="login">
     <div class="login_box">
       <h2 class="title">后台管理系统</h2>
-      <el-form
-        ref="LoginFormRef"
-        :model="LoginForm"
-        :rules="LoginFormRules"
-        label-width="60px"
-      >
+      <el-form ref="LoginFormRef" :model="LoginForm" :rules="LoginFormRules" label-width="60px">
         <el-form-item label="用户" prop="username">
-          <el-input
-            v-model="LoginForm.username"
-            type="text"
-            prefix-icon="el-icon-user"
-          ></el-input>
+          <el-input v-model="LoginForm.username" type="text" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
-
         <el-form-item label="密码" prop="password">
-          <el-input
-            show-password
-            v-model="LoginForm.password"
-            type="password"
-             prefix-icon="el-icon-lock"
-          ></el-input>
+          <el-input show-password v-model="LoginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
         </el-form-item>
         <el-form-item class="login-btn">
           <el-button type="primary" @click="login">登录</el-button>

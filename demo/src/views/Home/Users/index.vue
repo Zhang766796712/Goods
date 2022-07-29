@@ -11,16 +11,8 @@
       <!-- 搜索框  按钮 -->
       <el-row>
         <el-col :span="8">
-          <el-input
-            placeholder="请输入内容"
-            v-model="page.query"
-            class="input-with-select"
-          >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="search"
-            ></el-button>
+          <el-input placeholder="请输入内容" v-model="page.query" class="input-with-select">
+            <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
           </el-input>
         </el-col>
         <el-col :span="8">
@@ -29,81 +21,34 @@
       </el-row>
       <!-- 表格 -->
       <el-table :data="users" border style="width: 100%">
-        <el-table-column type="index" label="#" width="70"></el-table-column>
-        <el-table-column
-          prop="username"
-          label="姓名"
-          width="120"
-        ></el-table-column>
-        <el-table-column
-          prop="mobile"
-          label="电话"
-          width="150"
-        ></el-table-column>
-        <el-table-column
-          prop="email"
-          label="邮箱"
-          width="150"
-        ></el-table-column>
-        <el-table-column
-          prop="role_name"
-          label="角色"
-          width="120"
-        ></el-table-column>
-        <el-table-column prop="mg_state" label="状态" width="120">
+        <el-table-column type="index" label="#" width="100"></el-table-column>
+        <el-table-column prop="username" label="姓名" width="200"></el-table-column>
+        <el-table-column prop="mobile" label="电话" width="200"></el-table-column>
+        <el-table-column prop="email" label="邮箱" width="200"></el-table-column>
+        <el-table-column prop="role_name" label="角色" width="150"></el-table-column>
+        <el-table-column prop="mg_state" label="状态" width="150">
           <template slot-scope="scope">
             <!-- switch 开关 -->
-            <el-switch
-              v-model="scope.row.mg_state"
-              @change="changeState(scope.row)"
-            ></el-switch>
+            <el-switch v-model="scope.row.mg_state" @change="changeState(scope.row)"></el-switch>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button
-              type="primary"
-              size="mini"
-              icon="el-icon-edit"
-              @click="edit(scope.row)"
-            ></el-button>
-            <el-button
-              type="danger"
-              size="mini"
-              icon="el-icon-delete"
-              @click="del(scope.row)"
-            ></el-button>
-            <el-button
-              type="warning"
-              size="mini"
-              icon="el-icon-setting"
-              @click="AssignRoles(scope.row)"
-            ></el-button>
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="edit(scope.row)"></el-button>
+            <el-button type="danger" size="mini" icon="el-icon-delete" @click="del(scope.row)"></el-button>
+            <el-button type="warning" size="mini" icon="el-icon-setting" @click="AssignRoles(scope.row)"></el-button>
           </template>
         </el-table-column>
       </el-table>
       <!-- 对话框 -->
       <el-dialog :title="title" :visible.sync="dialogVisible" width="50%">
         <!-- 带验证的表单 -->
-        <el-form
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-          label-width="100px"
-          class="demo-ruleForm"
-        >
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="用户名" prop="username">
             <!-- disabled  禁用 -->
-            <el-input
-              v-model="ruleForm.username"
-              :disabled="title == '编辑用户'"
-            ></el-input>
+            <el-input v-model="ruleForm.username" :disabled="title == '编辑用户'"></el-input>
           </el-form-item>
-          <el-form-item
-            label="密码"
-            prop="password"
-            v-show="title == '添加用户'"
-          >
+          <el-form-item label="密码" prop="password" v-show="title == '添加用户'">
             <el-input v-model="ruleForm.password"></el-input>
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
@@ -113,20 +58,8 @@
             <el-input v-model="ruleForm.mobile"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button
-              type="primary"
-              v-show="title == '添加用户'"
-              @click="submitForm()"
-            >
-              添加
-            </el-button>
-            <el-button
-              type="primary"
-              v-show="title == '编辑用户'"
-              @click="save"
-            >
-              保存修改
-            </el-button>
+            <el-button type="primary" v-show="title == '添加用户'" @click="submitForm()">添加</el-button>
+            <el-button type="primary" v-show="title == '编辑用户'" @click="save">保存修改</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -139,12 +72,7 @@
           <p>
             分配新角色：
             <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in RoleList"
-                :key="item.id"
-                :label="item.roleName"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="item in RoleList" :key="item.id" :label="item.roleName" :value="item.id"></el-option>
             </el-select>
           </p>
         </div>
@@ -158,25 +86,16 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.pagenum"
-        :page-sizes="[5, 10, 15, 20]"
+        :page-sizes="[7, 10, 15, 20]"
         :page-size="page.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-      ></el-pagination>
+        :total="total"></el-pagination>
     </el-card>
   </div>
 </template>
 
 <script>
-import {
-  Usersapi,
-  AddUsersapi,
-  UsersDeitapi,
-  UsersDelapi,
-  UsersState,
-  AssignRolesapi,
-  SetRolesapi
-} from '@/http/api'
+import { Usersapi, AddUsersapi, UsersDeitapi, UsersDelapi, UsersState, AssignRolesapi, SetRolesapi } from '@/http/api'
 export default {
   name: 'users',
   data() {
@@ -187,9 +106,7 @@ export default {
       //2.如果不满足规则，报错提示
       if (!reg.test(value)) {
         //报错提示
-        return callback(
-          new Error('您的邮箱格式不正确，邮箱格式应该为xxxxx@xxx.com')
-        )
+        return callback(new Error('您的邮箱格式不正确，邮箱格式应该为xxxxx@xxx.com'))
       }
       //3.满足规则放行！
       callback()
@@ -201,22 +118,19 @@ export default {
       //2.如果不满足规则，报错提示
       if (!reg.test(value)) {
         //报错提示
-        return callback(
-          new Error('您的手机号式不正确，手机号格式格式：13xxxxxxxxxx')
-        )
+        return callback(new Error('您的手机号式不正确，手机号格式格式：13xxxxxxxxxx'))
       }
       //3.满足规则放行！
       callback()
     }
     return {
       users: [], // 用户列表
-      total: 0, // 用户列表总条数
-      editId: '', // 编辑的id
       title: '', // 弹出框的标题
+      total: 0, // 用户列表总条数
       page: {
         query: '', // 搜索的内容
         pagenum: 1, // 当前页码
-        pagesize: 5 // 每页的条数
+        pagesize: 7 // 每页的条数
       },
       dialogVisible: false, // 添加用户控制模态框显示和隐藏
       ruleForm: {

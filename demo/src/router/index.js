@@ -17,11 +17,17 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    redirect: '/welcome',
     meta: {
       auth: true
     },
     component: () => import('@/views/Home'),
     children: [
+      {
+        path: '/welcome',
+        name: 'welcome',
+        component: () => import('@/views/Home/Welcome')
+      },
       {
         path: '/users', // 用户列表页面
         name: 'Users',
@@ -30,13 +36,43 @@ const routes = [
       {
         path: '/roles', // 角色列表页面
         name: 'Roles',
-        component: () => import('../views/Home/Roles')
+        component: () => import('../views/Home/Rights/roles.vue')
       },
       {
         path: '/rights', // 权限列表页面
         name: 'Rights',
-        component: () => import('../views/Home/Rights')
-      }
+        component: () => import('../views/Home/Rights/rights.vue')
+      },
+      {
+        path: '/goods', // 商品列表页面
+        name: 'goods',
+        component: () => import('../views/Home/Goods/goodsList')
+      },
+      {
+        path: '/params', // 分类参数列表页面
+        name: 'params',
+        component: () => import('../views/Home/Goods/params')
+      },
+      {
+        path: '/categories', // 商品分类列表页面
+        name: 'categories',
+        component: () => import('../views/Home/Goods/categories')
+      },
+      {
+        path: '/add', // 添加商品列表页面
+        name: 'add',
+        component: () => import('../views/Home/Goods/goodsAdd')
+      },
+      {
+        path: '/orders', // 订单列表页面
+        name: 'orders',
+        component: () => import('../views/Home/Orders')
+      },
+      {
+        path: '/reports', // 数据统计页面
+        name: 'reports',
+        component: () => import('../views/Home/Reports')
+      },
     ]
   }
 ]

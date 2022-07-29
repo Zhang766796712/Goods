@@ -8,9 +8,9 @@
         <el-row :gutter="24">
           <el-col :span="8">公司LOGO</el-col>
           <el-col :span="13">企业后台管理系统</el-col>
-          <el-col :span="3"
-            ><el-button type="info" @click="quit">退出</el-button></el-col
-          >
+          <el-col :span="3"></el-col>
+            <el-button type="info" @click="quit">退出</el-button>
+          </el-col>
         </el-row>
       </el-header>
       <el-container>
@@ -20,17 +20,17 @@
           </p>
           <!-- 左侧导航 -->
           <el-menu
-            :default-active="$route.path"
+            default-active="2"
             class="el-menu-vertical-demo"
             background-color="#545c64"
             text-color="#fff"
-            active-text-color="#f00"
-            :collapse="isCollapse"
+            active-text-color="#409efd"
             router
+            :collapse="isCollapse"
           >
             <el-submenu :index="item.path" v-for="item in menus" :key="item.id">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i class="el-icon-s-custom"></i>
                 <span>{{ item.authName }}</span>
               </template>
               <el-menu-item-group>
@@ -39,8 +39,10 @@
                   :index="ele.path"
                   v-for="ele in item.children"
                   :key="ele.id"
-                  >{{ ele.authName }}</el-menu-item
                 >
+                  <i class="el-icon-menu"></i>
+                  <span>{{ ele.authName }}</span>
+                </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -92,7 +94,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #545c64;
+  background-color: rgb(84, 92, 100);
   color: #333;
   text-align: center;
   height: calc(100vh - 60px);

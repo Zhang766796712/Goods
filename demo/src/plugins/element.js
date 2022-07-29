@@ -27,10 +27,31 @@ import {
   Select,
   Option,
   Tag,
-  Tree
-
+  Tree,
+  Alert,
+  Steps,
+  Step,
+  Tabs,
+  TabPane,
+  Cascader,
+  CheckboxGroup,
+  Checkbox,
+  Upload,
+  Timeline,
+  TimelineItem
 } from 'element-ui'
 
+Vue.use(TimelineItem)
+Vue.use(Timeline)
+Vue.use(Upload)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Cascader)
+Vue.use(TabPane)
+Vue.use(Tabs)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(Alert)
 Vue.use(Tree)
 Vue.use(Tag)
 Vue.use(Option)
